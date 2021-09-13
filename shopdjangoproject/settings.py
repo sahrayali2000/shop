@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'accounts',
-    'product',
+    'members',
+    'products',
     'basket',
     'bootstrap4',
     'core'
@@ -86,9 +87,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'shop',
         'USER': 'ali',
-        'PASSWORD': 'root',
+        'PASSWORD': '7607',
         'HOST': '127.0.0.1',
-        'PORT': '8502'
+        'PORT': '5432'
     }
 }
 
@@ -129,9 +130,27 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+REST_FRAMEWORK = {
+
+'DEFAULT_RENDERER_CLASSES': (
+    #   'rest_framework.renderers.XMLRenderer',
+    'rest_framework.renderers.JSONRenderer',
+      'rest_framework.renderers.BrowsableAPIRenderer',
+    ),
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning'
+
+}
+STATIC_URL = '/static/'
+STATIC_ROOT = 'static/'
+
+# STATICFILES_DIRS = [
+#     BASE_DIR / ''
+# ]
+
+AUTH_USER_MODEL = 'accounts.User'

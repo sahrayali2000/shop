@@ -1,5 +1,4 @@
 from django.db import models
-from members.models import Customer, Staff
 # Create your models here.
 
 class Category(models.Model):

@@ -1,5 +1,5 @@
 from django.db import models
-from product.models import Product
+from products.models import Product
 from members.models import Customer
 # Create your models here.
 class Basket(models.Model):
@@ -7,7 +7,7 @@ class Basket(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True, blank=True)
     total_amount = models.IntegerField()
     date = models.DateField(auto_now_add=True)
-    have_discount = models.BooleanField(default=False)
+    discount = models.PositiveIntegerField(null=True, blank=True)
     final_amount = models.IntegerField(null=True, blank=True)
     READY = 1
     SENT = 2

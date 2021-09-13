@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ثبت نام</title>
+</head>
+<body>
+<form method="post">
+{% csrf_token %}
+    {{ user.as_p }}
+    {{ customer.as_p }}
+    <input type="submit" value="ثبت نام">
+</form>
+</body>
+</html>
