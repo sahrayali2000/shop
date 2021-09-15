@@ -13,6 +13,8 @@
 </head>
 <body>
 <div class="container">
+    {{ user.first_name }}
+    {{ user.last_name }}
 <form method="post">
     {% load bootstrap4 %}
 {% csrf_token %}
