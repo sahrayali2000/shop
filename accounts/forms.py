@@ -10,6 +10,11 @@ class UserForm(forms.ModelForm):
             're_password': forms.PasswordInput,
         }
 
+    def __init__(self, *args, **kwargs):
+        super(UserForm, self).__init__(*args, **kwargs)
+        self.fields['username'].label = "نام کاربری"
+        self.fields['password'].label = "کلمه عبور"
+
 class CustomerForm(forms.ModelForm):
     class Meta:
         model = Customer
