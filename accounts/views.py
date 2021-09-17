@@ -1,9 +1,9 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from members.models import Customer
-from .forms import UserForm, CustomerForm, ForgetPasswordForm
+from .forms import UserForm, CustomerForm, ForgetPasswordForm, ChangePasswordForm
 from django.forms import ValidationError
 # Create your views here.
 
@@ -97,3 +97,15 @@ def forget_password(request):
         'forget_password_form': forget_password_form
     }
     return render(request, 'accounts/forget-password.html', context=context)
+
+def change_password(request):
+    change_password_form = ChangePasswordForm()
+    context = {
+        'change_password_form': change_password_form
+    }
+    return render(request, 'accounts/change_password.html', context=context)
+
+def logout_view(request):
+    logout(request)
+    return HttpResponse('done')
+

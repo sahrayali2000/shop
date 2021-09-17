@@ -24,3 +24,7 @@ class CustomerForm(forms.ModelForm):
 class ForgetPasswordForm(forms.Form):
     username = forms.CharField(max_length=100, label='نام کاربری')
     phone = forms.CharField(max_length=100, label='شماره تلفن')
+
+class ChangePasswordForm(forms.Form):
+    password = forms.CharField(max_length=100, widget=forms.PasswordInput, label='کلمه عبور جدید')
+    re_password = forms.CharField(max_length=100, widget=forms.PasswordInput, label='تکرار کلمه عبور جدید')

@@ -7,9 +7,13 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['username', 'password', 're_password', 'image', 'phone']
 
-class ForgetPasswordSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['username', 'phone']
+class ForgetPasswordSerializer(serializers.Serializer):
+    username = serializers.CharField(max_length=100)
+    phone = serializers.CharField(max_length=100)
+
+class ChangePasswordSerializer(serializers.Serializer):
+    password = serializers.CharField(max_length=100)
+    re_password = serializers.CharField(max_length=100)
+
 
 
