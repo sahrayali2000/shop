@@ -6,14 +6,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>ثبت نام</title>
         <style>
-        * {
+        body {
             direction: rtl;
         }
     </style>
 </head>
 <body>
 <div class="container">
-<form id="form" action="">
+<form id="form" action="" enctype="multipart/form-data">
     {% load bootstrap4 %}
 {% csrf_token %}
     {% bootstrap_form user %}
@@ -33,14 +33,16 @@
        $.ajax({
            url: "{% url 'authapi:register' %}",
            type: "POST",
-           dataType: "json",
+           dataType: "text",
            headers:{"X-CSRFToken": $crf_token},
       data: $('#form').serialize(),
            success: function (){
+               console.log(this.data);
              alert('ثبت نام با موفقیت انجام شد');
     },
            error: function(xhr, resp, text) {
                console.log(xhr, resp, text);
+               console.log(this.data)
 
          }
           });

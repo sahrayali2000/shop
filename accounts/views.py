@@ -1,6 +1,8 @@
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+
+from members.models import Customer
 from .forms import UserForm, CustomerForm
 from django.forms import ValidationError
 # Create your views here.
@@ -63,10 +65,28 @@ def complete_register(request):
             else :
                 return HttpResponse('something wrong')
         else:
-            user = request.user
-            customer = CustomerForm()
-            context = {
-                'user': user,
-                'customer': customer,
-            }
-            return render(request, 'accounts/complete-register.html', context=context)
+            try:
+                customer = get_object_or_404(Customer, user=request.user)
+                return HttpResponse('you cant access this page')
+            except:
+                user = request.user
+                customer = CustomerForm()
+                context = {
+                    'user': user,
+                    'customer': customer,
+                }
+                return render(request, 'accounts/complete-register.html', context=context)
+    else:
+        return redirect('accounts:login')
+
+def profile(request):
+    if request.user.is_authenticated:
+        try:
+            customer = get_object_or_404(Customer, user=request.user)
+        except:
+            return redirect('accounts:complete-register')
+        return render(request, 'accounts/profile.html', context={
+            'customer': customer
+        })
+    else:
+        return redirect('accounts:login')
