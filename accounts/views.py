@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from members.models import Customer
-from .forms import UserForm, CustomerForm
+from .forms import UserForm, CustomerForm, ForgetPasswordForm
 from django.forms import ValidationError
 # Create your views here.
 
@@ -90,3 +90,10 @@ def profile(request):
         })
     else:
         return redirect('accounts:login')
+
+def forget_password(request):
+    forget_password_form = ForgetPasswordForm()
+    context = {
+        'forget_password_form': forget_password_form
+    }
+    return render(request, 'accounts/forget-password.html', context=context)

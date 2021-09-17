@@ -21,6 +21,12 @@
     <input type="button" id="submit" name="submit" value="ثبت نام" class="btn btn-block btn-primary ">
     {% endbuttons %}
 </form>
+<br>
+<div class="container-fluid">
+    <div id="login_redirect">
+
+    </div>
+</div>
 </div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -37,12 +43,13 @@
            headers:{"X-CSRFToken": $crf_token},
       data: $('#form').serialize(),
            success: function (){
-               console.log(this.data);
-             alert('ثبت نام با موفقیت انجام شد');
+             $('#login_redirect').append('<a class="btn btn-block btn-primary"' +
+                 ' href="{% url 'accounts:login' %}">جهت تکمیل ثبت نام ابتدا وارد شوید</a>');
+               alert('ثبت نام با موفقیت انجام شد');
+
     },
            error: function(xhr, resp, text) {
                console.log(xhr, resp, text);
-               console.log(this.data)
 
          }
           });

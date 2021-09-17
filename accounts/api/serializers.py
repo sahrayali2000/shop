@@ -7,4 +7,9 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['username', 'password', 're_password', 'image', 'phone']
 
+class ForgetPasswordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username', 'phone']
+
 

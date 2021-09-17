@@ -3,9 +3,9 @@ from rest_framework.views import APIView
 from accounts.models import User
 from rest_framework.decorators import api_view, action
 from rest_framework.response import Response
-from .serializers import UserSerializer
+from .serializers import UserSerializer, ForgetPasswordSerializer
 from rest_framework.parsers import MultiPartParser, FormParser
-
+from django.shortcuts import get_object_or_404
 class Register(mixins.ListModelMixin,
                mixins.CreateModelMixin,
                generics.GenericAPIView):
@@ -25,3 +25,20 @@ class Register(mixins.ListModelMixin,
 
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class ForgetPasswordApi(mixins.ListModelMixin,
+               mixins.CreateModelMixin,
+               generics.GenericAPIView):
+    queryset = User.objects.all()
+    serializer_class = ForgetPasswordSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = ForgetPasswordSerializer(data=request.data)
+        if serializer.is_valid():
+            username = serializer.validated_data['username']
+            phone = serializer.validated_data['phone']
+            try:
+                user = get_object_or_404(User, username=username, phone=phone)
+                return Response(status=status.HTTP_200_OK)
+            except:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
