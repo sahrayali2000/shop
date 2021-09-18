@@ -37,7 +37,6 @@ class CustomUserManager(BaseUserManager):
 
 class User(AbstractUser):
     phone = models.CharField(max_length=30, verbose_name='شماره موبایل')
-    image = models.FileField(upload_to='accounts/images', null=True, blank=True ,verbose_name='تصویر')
     re_password = models.CharField(max_length=10,verbose_name='تکرار کلمه عبور')
     objects = CustomUserManager()
 

@@ -5,7 +5,7 @@ from members.models import Customer
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['username', 'password', 're_password', 'image', 'phone']
+        fields = ['username', 'password', 're_password', 'phone']
 
 class ForgetPasswordSerializer(serializers.Serializer):
     username = serializers.CharField(max_length=100)

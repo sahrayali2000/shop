@@ -1,11 +1,14 @@
-from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponse
+from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
-
+from django.contrib import messages
 from members.models import Customer
-from .forms import UserForm, CustomerForm, ForgetPasswordForm, ChangePasswordForm
+from .forms import UserForm, CustomerForm, ForgetPasswordForm, ChangePasswordForm, EditProfileForm, UserEditProfileForm
 from django.forms import ValidationError
+from django.urls import reverse
 # Create your views here.
+User = get_user_model()
 
 def register(request):
     if request.method == 'POST':
@@ -51,7 +54,7 @@ def login_view(request):
             return HttpResponse('something wrong')
     else:
         return render(request, 'accounts/login.html', context={})
-
+@login_required
 def complete_register(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
@@ -78,7 +81,7 @@ def complete_register(request):
                 return render(request, 'accounts/complete-register.html', context=context)
     else:
         return redirect('accounts:login')
-
+@login_required
 def profile(request):
     if request.user.is_authenticated:
         try:
@@ -97,15 +100,42 @@ def forget_password(request):
         'forget_password_form': forget_password_form
     }
     return render(request, 'accounts/forget-password.html', context=context)
-
+@login_required
 def change_password(request):
     change_password_form = ChangePasswordForm()
     context = {
         'change_password_form': change_password_form
     }
     return render(request, 'accounts/change_password.html', context=context)
-
+@login_required
 def logout_view(request):
     logout(request)
     return HttpResponse('done')
+
+@login_required
+def edit_profile(request):
+    if request.user.is_authenticated:
+        user = request.user
+        user_form = UserEditProfileForm(instance=get_object_or_404(User, username=user.username))
+        customer = EditProfileForm(instance=get_object_or_404(Customer, user=user))
+        if request.method == 'POST':
+            customer = EditProfileForm(request.POST, instance=get_object_or_404(Customer, user=user))
+            user_form = UserEditProfileForm(request.POST, instance=get_object_or_404(User, username=user.username))
+            if customer.is_valid() and user_form.is_valid():
+                customer_instance = customer.save()
+                user_instance = user_form.save()
+                customer_instance.save()
+                user_instance.save()
+                messages.success(request, 'ویرایش پروفایل با موفقیت انجام شد')
+                return HttpResponseRedirect(reverse('accounts:edit-profile'))
+            else:
+                messages.error(request, 'ویرایش پروفایل با مشکل مواجه شد')
+        else:
+            context = {
+                'user_form': user_form,
+                'customer': customer
+            }
+            return render(request, 'accounts/edit-profile.html', context=context)
+
+
 
