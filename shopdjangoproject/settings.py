@@ -149,9 +149,9 @@ REST_FRAMEWORK = {
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static/'
 
-# STATICFILES_DIRS = [
-#     BASE_DIR / ''
-# ]
+STATICFILES_DIRS = [
+    BASE_DIR / ''
+]
 
 AUTH_USER_MODEL = 'accounts.User'
 LOGIN_URL = '/accounts/login/'

@@ -20,6 +20,8 @@ class Register(mixins.ListModelMixin,
                 user = serializer.save()
                 user.set_password(serializer.validated_data['password'])
                 user.save()
+                user_instance = authenticate(request, username=serializer.validated_data['username'], password=serializer.validated_data['password'])
+                login(request, user=user_instance)
                 return Response(status=status.HTTP_200_OK)
             else:
                 return Response(status=status.HTTP_400_BAD_REQUEST)

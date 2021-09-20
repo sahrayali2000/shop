@@ -1,17 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends 'accounts/base-register.html' %}
+{% block style %}
+<style>
+    body{
+        direction: rtl;
+    }
+</style>
+{% endblock %}
+{% block title %}
+تکمیل ثبت نام
+{% endblock %}
 
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>ثبت نام</title>
-        <style>
-        * {
-            direction: rtl;
-        }
-    </style>
-</head>
-<body>
+{% block content %}
 <div class="container">
     {{ user.first_name }}
     {{ user.last_name }}
@@ -22,5 +21,7 @@
     <input type="submit" value="تکمیل ثبت نام" class="btn btn-block btn-primary">
 </form>
 </div>
-</body>
-</html>
+{% endblock %}
+
+{% block js %}
+{% endblock %}
