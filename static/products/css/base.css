@@ -1,0 +1,20 @@
+body {
+    direction: rtl;
+    text-align: right;
+
+}
+.navbar {
+    background-color: #1e347b;
+}
+.navbar .dropdown-menu a:hover {
+    color: #616161 !important;
+}
+.navbar-nav {
+    margin-left: 50%;
+}
+
+.category-sidebar {
+    background-color: #1e347b;
+    color: white;
+    text-align: right;
+}

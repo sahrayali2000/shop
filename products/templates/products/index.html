@@ -1,0 +1,38 @@
+{% extends 'products/base.html' %}
+{% block title %}
+صفحه اصلی
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    {% for product in products %}
+        <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+            <div class="card" style="width: 18rem;">
+              <img class="card-img-top" src="{{ product.image }}" alt="Card image cap">
+
+              <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text"> توضیحات محصول : {{ product.discription }}</p>
+                <p class="card-text"> دسته بندی : {{ product.category }}</p>
+                <p class="card-text"> قیمت : {{ product.price }}</p>
+                <a href="#" class="btn btn-primary" style="float: right">مشاهده محصول</a>
+
+
+              </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
+
+{% block sidebar %}
+<ul class="list-group" style="margin-left: 1vw;">
+  <li class="list-group-item category-sidebar">دسته بندی ها</li>
+
+{% for cat in categories %}
+
+  <li class="list-group-item ">{{ cat.name }}</li>
+{% endfor %}
+</ul>
+{% endblock %}
