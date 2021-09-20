@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block title %}
-فراموشی کلمه عبور
+ورود
 {% endblock %}
 {% block content %}
 {% load bootstrap4 %}
@@ -29,5 +29,15 @@
 </div>
 {% endblock %}
 {% block js %}
+        {% if messages %}
 
+            {% for message in messages %}
+                <div class="message-flash">
+                </div>
+                <script>
+                alert('{{ message }}')
+                </script>
+            {% endfor %}
+
+    {% endif %}
 {% endblock %}

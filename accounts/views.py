@@ -52,9 +52,10 @@ def login_view(request):
             print(request.GET)
             if 'next' in request.GET:
                 return HttpResponseRedirect(request.get['next'])
-            return HttpResponse('done')
+            return HttpResponseRedirect('products:index')
         else:
-            return HttpResponse('something wrong')
+            messages.error(request, 'نام کاربری یا کلمه عبور صحیح نیست')
+            return redirect('accounts:login')
     else:
         return render(request, 'accounts/login.html', context={})
 @login_required
@@ -67,9 +68,10 @@ def complete_register(request):
                 customer_instance = customer.save(commit=False)
                 customer_instance.user = user
                 customer_instance.save()
-                return HttpResponse('done')
+                return redirect('accounts:profile')
             else :
-                return HttpResponse('something wrong')
+                messages.error(request, 'مشکلی پیش آمده است')
+                return redirect('accounts:complete-register')
         else:
             try:
                 customer = get_object_or_404(Customer, user=request.user)
@@ -113,11 +115,16 @@ def change_password(request):
 @login_required
 def logout_view(request):
     logout(request)
-    return HttpResponse('done')
+    return redirect('products:index')
 
 @login_required
 def edit_profile(request):
+
     if request.user.is_authenticated:
+        try:
+            customer = get_object_or_404(Customer, user=request.user)
+        except:
+            return redirect('accounts:complete-register')
         user = request.user
         user_form = UserEditProfileForm(instance=get_object_or_404(User, username=user.username))
         customer = EditProfileForm(instance=get_object_or_404(Customer, user=user))

@@ -1,0 +1,36 @@
+{% extends 'products/base.html' %}
+{% block title %}
+صفحه اصلی
+{% endblock %}
+
+{% block content %}
+<div class="row">
+<div class="card" style="width: 60vw; margin-right: 10vw;">
+  <img class="card-img-top" src="{{ my_product.image }}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{ my_product.name }}</h5>
+    <p class="card-text"> توضیحات محصول : <br> {{ my_product.discription }}</p>
+    <p class="card-text"> قیمت : {{ my_product.price }}</p>
+      {% if my_product.inventory != 0 %}
+
+    <a href="#" class="btn btn-primary">افزودن به سبد خرید</a>
+      {% else %}
+    <button type="button" class="btn btn-secondary" disabled>ناموجود</button>
+
+      {% endif %}
+  </div>
+</div>
+</div>
+
+{% endblock %}
+
+{% block sidebar %}
+<ul class="list-group" style="margin-left: 1vw;">
+  <li class="list-group-item category-sidebar">دسته بندی ها</li>
+
+{% for cat in categories %}
+
+  <li class="list-group-item ">{{ cat.name }}</li>
+{% endfor %}
+</ul>
+{% endblock %}
