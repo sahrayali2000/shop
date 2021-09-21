@@ -34,7 +34,8 @@ def order_product(request, pk):
         request.session.set_expiry(999999)
         request.session[f'{production_name}'] = production_name
         request.session[f'numbers_{production_name}'] = request.POST['num']
-        if request.POST['num'] > production.inventory:
+        num = int(request.POST['num'])
+        if num > production.inventory:
             messages.error(request,'تعداد مورد نظر از موجودی بیشتر است')
             return redirect('products:detail', pk=production.id)
 
@@ -43,6 +44,17 @@ def order_product(request, pk):
     else:
         messages.error(request, 'مشکلی در اضافه کردن به سبد خرید به وجود آمد')
         return redirect('products:detail', pk=production.id)
+
+def category(request, pk):
+    cat = get_object_or_404(Category, id=pk)
+    productions = get_list_or_404(Product, category=cat)
+    categories = get_list_or_404(Category)
+    context = {
+        'cat': cat,
+        'productions': productions,
+        'categories': categories
+    }
+    return render(request, 'products/category.html', context=context)
 
 @login_required
 def show_basket(request):

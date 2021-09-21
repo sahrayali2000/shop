@@ -41,7 +41,7 @@
 
 {% for cat in categories %}
 
-  <li class="list-group-item ">{{ cat.name }}</li>
+  <li class="list-group-item "><a href="{% url 'products:category' cat.id %}">{{ cat.name }}</a></li>
 {% endfor %}
 </ul>
 {% endblock %}
