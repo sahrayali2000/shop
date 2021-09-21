@@ -58,8 +58,10 @@ def show_basket(request):
         PRODUCTS.order_number = request.session[f'numbers_{PRODUCTS.name}']
         PRODUCTS.save()
         products.append(PRODUCTS)
+    categories = get_list_or_404(Category)
     context = {
         'products': products,
+        'categories': categories
     }
     return render(request, 'products/show-basket.html', context=context)
 
