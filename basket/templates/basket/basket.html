@@ -1,0 +1,23 @@
+{% extends 'basket/base.html' %}
+{% block title %}
+
+    سبد خرید
+{% endblock %}
+
+{% block content %}
+<div class="row">
+
+</div>
+
+{% endblock %}
+
+{% block sidebar %}
+<ul class="list-group" style="margin-left: 1vw;">
+  <li class="list-group-item category-sidebar">دسته بندی ها</li>
+
+{% for cat in categories %}
+
+  <li class="list-group-item "><a href="{% url 'products:category' cat.id %}">{{ cat.name }}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}

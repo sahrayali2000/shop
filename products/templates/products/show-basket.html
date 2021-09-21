@@ -7,7 +7,7 @@
 <div class="row">
     {% for pro in products %}
         <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-        <div class="card" style="width: 30vw; margin-right: 2vw;">
+        <div class="card" style="width: 32vw; margin-right: 2vw;">
       <img class="card-img-top" src="{{ pro.image }}" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">{{ pro.name }}</h5>
@@ -18,6 +18,10 @@
     </div>
         </div>
     {% endfor %}
+
+<div class="col-12" style="margin-right: 2vw; margin-top: 8vh;">
+    <a href="#" class="btn btn-block btn-primary">نهایی کردن خرید</a>
+</div>
 </div>
 {% endblock %}
 

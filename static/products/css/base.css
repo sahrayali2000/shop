@@ -3,6 +3,9 @@ body {
     text-align: right;
 
 }
+a {
+    text-decoration: none;
+}
 .navbar {
     background-color: #1e347b;
 }
