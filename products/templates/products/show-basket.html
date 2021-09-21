@@ -1,0 +1,33 @@
+{% extends 'products/base.html' %}
+{% block title %}
+سبد خرید
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    {% for pro in products %}
+        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="card" style="width: 30vw; margin-right: 2vw;">
+      <img class="card-img-top" src="{{ pro.image }}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">{{ pro.name }}</h5>
+        <p class="card-text">{{ pro.discription }}</p>
+        <p class="card-text"> تعداد سفارش : {{ pro.order_number }}</p>
+        <a href="{% url 'products:delete-basket-item' pro.name %}" class="btn btn-danger btn-sm">حذف از سبد</a>
+      </div>
+    </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<ul class="list-group" style="margin-left: 1vw;">
+  <li class="list-group-item category-sidebar">دسته بندی ها</li>
+
+{% for cat in categories %}
+
+  <li class="list-group-item ">{{ cat.name }}</li>
+{% endfor %}
+</ul>
+{% endblock %}

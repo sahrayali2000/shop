@@ -16,6 +16,7 @@ class Product(models.Model):
     discription = models.TextField()
     price = models.IntegerField()
     inventory = models.IntegerField()
+    order_number = models.PositiveIntegerField(default=0, null=True, blank=True)
 
     def __str__(self):
         return self.name

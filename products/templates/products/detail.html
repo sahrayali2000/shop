@@ -1,6 +1,7 @@
 {% extends 'products/base.html' %}
 {% block title %}
-صفحه اصلی
+
+    {{ my_product.name }}
 {% endblock %}
 
 {% block content %}
@@ -12,8 +13,15 @@
     <p class="card-text"> توضیحات محصول : <br> {{ my_product.discription }}</p>
     <p class="card-text"> قیمت : {{ my_product.price }}</p>
       {% if my_product.inventory != 0 %}
+          <form method="post" action="{% url 'products:order-product' my_product.id %}">
+          {% csrf_token %}
+          <label>تعداد : </label>
+          <input type="number" name="num" class="form-control" style="width: 6vw; height: 4vh;">
+            <br>
+          <input type="submit" value="افزودن به سبد خرید" class="btn btn-primary">
 
-    <a href="#" class="btn btn-primary">افزودن به سبد خرید</a>
+          </form>
+
       {% else %}
     <button type="button" class="btn btn-secondary" disabled>ناموجود</button>
 
@@ -33,4 +41,17 @@
   <li class="list-group-item ">{{ cat.name }}</li>
 {% endfor %}
 </ul>
+{% endblock %}
+{% block js %}
+            {% if messages %}
+
+            {% for message in messages %}
+                <div class="message-flash">
+                </div>
+                <script>
+                alert('{{ message }}')
+                </script>
+            {% endfor %}
+
+    {% endif %}
 {% endblock %}

@@ -51,8 +51,8 @@ def login_view(request):
             login(request=request, user=user)
             print(request.GET)
             if 'next' in request.GET:
-                return HttpResponseRedirect(request.get['next'])
-            return HttpResponseRedirect('products:index')
+                return redirect(request.get['next'])
+            return redirect('products:index')
         else:
             messages.error(request, 'نام کاربری یا کلمه عبور صحیح نیست')
             return redirect('accounts:login')
