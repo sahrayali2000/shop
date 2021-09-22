@@ -9,11 +9,13 @@
 {% for basket in the_basket %}
     <div class="col-12">
         {% for production in basket.product.all %}
+            <div class="row">
             <div class="col-3">
-                <img src="{{ production.image }}" style="width: 10vw; height: 10vh;">
+                <img src="{{ production.image }}" style="width: 10vw; height: 10vh; margin-bottom: 5vh;">
             </div>
             <div class="col-lg-8">
-                <pre>{{ production.name }}  {{ production.price }}</pre>
+                <pre>{{ production.name }}  قیمت : {{ production.price }}</pre>
+            </div>
             </div>
         {% endfor %}
     </div>

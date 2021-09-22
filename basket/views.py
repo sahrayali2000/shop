@@ -20,9 +20,13 @@ def create_basket(request):
             for production in productions:
                 if production.name in all_sessions:
                     TotalAmount.append(production.price)
+                    order_num = request.session[f'numbers_{production.name}']
+                    order_num = int(order_num)
+                    production.inventory -= order_num
                     print(production.name)
                     basket_instance.product.add(production)
                     basket_instance.save()
+                    production.save()
             basket_instance.total_amount = sum(TotalAmount)
             basket_instance.save()
             request.session.clear()

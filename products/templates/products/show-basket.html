@@ -12,7 +12,6 @@
       <div class="card-body">
         <h5 class="card-title">{{ pro.name }}</h5>
         <p class="card-text">{{ pro.discription }}</p>
-        <p class="card-text"> تعداد سفارش : {{ pro.order_number }}</p>
         <a href="{% url 'products:delete-basket-item' pro.name %}" class="btn btn-danger btn-sm">حذف از سبد</a>
       </div>
     </div>

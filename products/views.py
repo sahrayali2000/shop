@@ -67,8 +67,6 @@ def show_basket(request):
     products = []
     for item in list_of_basket:
         PRODUCTS = get_object_or_404(Product, name=item)
-        PRODUCTS.order_number = request.session[f'numbers_{PRODUCTS.name}']
-        PRODUCTS.save()
         products.append(PRODUCTS)
     categories = get_list_or_404(Category)
     context = {
