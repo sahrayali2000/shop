@@ -4,10 +4,9 @@
     <style>
         body {
             direction: rtl !important;
-        }
-        .rtl-text {
             text-align: right;
         }
+
     </style>
 {% endblock %}
 
@@ -16,17 +15,24 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <div class="card" style="width: 18rem; margin-right: 43%; margin-top: 5rem;">
+
+        <div class="card" style="width: 50vw; margin-right: 3vw;">
             <img class="card-img-top" src="..." alt="Card image cap">
             <div class="card-body">
-            <h5 class="card-title rtl-text">{{ customer.first_name }} {{ customer.last_name }}</h5>
-            <p class="card-text rtl-text"> کد پستی : {{ customer.zip_code }}</p>
-            <p class="card-text rtl-text">  شماره تلفن : {{ customer.user.phone }}</p>
+            <h5 class="card-title">{{ customer.first_name }} {{ customer.last_name }}</h5>
+            <p class="card-text"> کد پستی : {{ customer.zip_code }}</p>
+            <p class="card-text">  شماره تلفن : {{ customer.user.phone }}</p>
             <a href="{% url 'accounts:edit-profile' %}" class="btn btn-primary" style="float: right">ویرایش پروفایل</a>
             </div>
         </div>
-    </div>
+
+{% endblock %}
+{% block sidebar %}
+    <ul class="list-group">
+  <li class="list-group-item access-sidebar">دسترسی سریع</li>
+    <li class="list-group-item"><a href="{% url 'basket:show-orders' %}">لیست سفارشات</a></li>
+    <li class="list-group-item"><a href="#">لیست سفارشات اخیر</a></li>
+</ul>
 {% endblock %}
 {% block js %}
 {% endblock %}

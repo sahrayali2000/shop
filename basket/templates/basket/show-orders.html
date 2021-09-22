@@ -7,16 +7,29 @@
 {% block content %}
     <div class="row">
 {% for basket in the_basket %}
-    <div class="col-12">
+
+    <div class="col-12" style="margin-right: 2vw;">
         {% for production in basket.product.all %}
-            <div class="row">
-            <div class="col-3">
-                <img src="{{ production.image }}" style="width: 10vw; height: 10vh; margin-bottom: 5vh;">
-            </div>
-            <div class="col-lg-8">
-                <pre>{{ production.name }}  قیمت : {{ production.price }}</pre>
-            </div>
-            </div>
+            <table class="table table-hover">
+  <thead>
+    <tr>
+
+      <th scope="col">تصویر محصول</th>
+      <th scope="col">نام محصول</th>
+      <th scope="col">قیمت</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+
+      <td><img src="{{ production.image }}" style="width: 10vw; height: 20vh;"></td>
+      <td>{{ production.name }}</td>
+      <td>{{ production.price }}</td>
+
+    </tr>
+
+  </tbody>
+</table>
         {% endfor %}
     </div>
 {% endfor %}

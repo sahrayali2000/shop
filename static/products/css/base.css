@@ -3,7 +3,7 @@ body {
     text-align: right;
 
 }
-a {
+a:hover {
     text-decoration: none;
 }
 .navbar {
