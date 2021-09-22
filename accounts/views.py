@@ -49,7 +49,6 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request=request, user=user)
-            print(request.GET)
             if 'next' in request.GET:
                 return redirect(request.get['next'])
             return redirect('products:index')

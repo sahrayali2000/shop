@@ -5,18 +5,20 @@
 {% endblock %}
 
 {% block content %}
-<div class="row">
-<form method="post" style="margin-right: 10vw;">
-{% load bootstrap4 %}
-
-    {% csrf_token %}
-    {% bootstrap_form basket_form %}
-    {% buttons %}
-    <input type="submit" id="submit" name="submit" value="نهایی کردن" class="btn btn-block btn-primary ">
-    {% endbuttons %}
-</form>
+    <div class="row">
+{% for basket in the_basket %}
+    <div class="col-12">
+        {% for production in basket.product.all %}
+            <div class="col-3">
+                <img src="{{ production.image }}" style="width: 10vw; height: 10vh;">
+            </div>
+            <div class="col-lg-8">
+                <pre>{{ production.name }}  {{ production.price }}</pre>
+            </div>
+        {% endfor %}
+    </div>
+{% endfor %}
 </div>
-
 {% endblock %}
 
 {% block sidebar %}

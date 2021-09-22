@@ -13,7 +13,9 @@ a {
     color: #616161 !important;
 }
 
-
+.navbar-nav{
+    margin-left: 50%;
+}
 .category-sidebar {
     background-color: #1e347b;
     color: white;

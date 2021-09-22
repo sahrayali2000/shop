@@ -5,7 +5,7 @@ from members.models import Customer
 class Basket(models.Model):
     product = models.ManyToManyField(Product, null=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True, blank=True)
-    total_amount = models.IntegerField()
+    total_amount = models.IntegerField(null=True, blank=True)
     date = models.DateField(auto_now_add=True)
     final_amount = models.IntegerField(null=True, blank=True)
     READY = 1
@@ -16,7 +16,7 @@ class Basket(models.Model):
         (SENT, 'sent'),
         (DELIVERED, 'delivered'),
     )
-    status = models.IntegerField(choices=status_choices)
+    status = models.IntegerField(choices=status_choices, default=1)
     address = models.TextField()
 
     def __str__(self):
