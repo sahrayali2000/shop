@@ -12,10 +12,9 @@
     {% for product in productions %}
         <div class="col-lg-4 col-md-4 col-sm-6 col-12">
             <div class="card" style="width: 22vw; margin-right: 1vw; margin-bottom: 2vw;">
-              <img class="card-img-top" src="{{ product.image }}" alt="Card image cap">
+              <img class="card-img-top" style="width: 20vw;" src="/media/{{ product.image }}" alt="Card image cap">
               <div class="card-body">
                 <h5 class="card-title">{{ product.name }}</h5>
-                <p class="card-text"> توضیحات محصول : {{ product.discription }}</p>
                 <p class="card-text"> دسته بندی : {{ product.category }}</p>
                 <p class="card-text"> قیمت : {{ product.price }}</p>
                 <a href="{% url 'products:detail' product.id %}" class="btn btn-primary" style="float: right">مشاهده محصول</a>

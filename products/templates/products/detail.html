@@ -5,11 +5,10 @@
 {% endblock %}
 
 {% block content %}
-    {% load static %}
 <div class="row">
 <div class="card" style="width: 60vw; margin-right: 10vw;">
 
-  <img class="card-img-top" src="{{ my_product.image }}" alt="Card image cap">
+  <img class="card-img-top" style="width: 20vw;" src="/media/{{ my_product.image }}" alt="Card image cap">
 
   <div class="card-body">
     <h5 class="card-title">{{ my_product.name }}</h5>
