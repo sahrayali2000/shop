@@ -23,13 +23,13 @@ def create_basket(request):
                     order_num = request.session[f'numbers_{production.name}']
                     order_num = int(order_num)
                     production.inventory -= order_num
-                    print(production.name)
                     basket_instance.product.add(production)
                     basket_instance.save()
                     production.save()
+                    del request.session[f'{production.name}']
+                    del request.session[f'numbers_{production.name}']
             basket_instance.total_amount = sum(TotalAmount)
             basket_instance.save()
-            request.session.clear()
             return HttpResponse('done')
     else:
         basket_form = BasketForm()

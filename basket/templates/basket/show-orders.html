@@ -8,7 +8,8 @@
     <div class="row">
 {% for basket in the_basket %}
 
-    <div class="col-12" style="margin-right: 2vw;">
+
+    <div class="col-12" style="margin-right: 2vw; margin-bottom: 3vh; border: 2px solid #1e347b; border-radius: 3px;">
         {% for production in basket.product.all %}
             <table class="table table-hover">
   <thead>
@@ -31,18 +32,46 @@
   </tbody>
 </table>
         {% endfor %}
+
+
+    <table class="table table-hover">
+  <thead>
+    <tr>
+
+      <th scope="col">مجموع قیمت سبد خرید</th>
+      <th scope="col">وضعیف پردازش سبد خرید</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+
+      <td>{{ basket.total_amount }}</td>
+      <td>{{ basket.status }}</td>
+    </tr>
+
+  </tbody>
+</table>
+
+
     </div>
+
 {% endfor %}
 </div>
 {% endblock %}
 
 {% block sidebar %}
-<ul class="list-group" style="margin-left: 1vw;">
+<ul class="list-group" style="margin-left: 1vw; margin-bottom: 3vh;">
   <li class="list-group-item category-sidebar">دسته بندی ها</li>
 
 {% for cat in categories %}
 
   <li class="list-group-item "><a href="{% url 'products:category' cat.id %}">{{ cat.name }}</a></li>
 {% endfor %}
+</ul>
+<ul class="list-group"  style="margin-left: 1vw; margin-bottom: 3vh;">
+    <li class="list-group-item category-sidebar">راهنمای وضعیت پردازش سبد خرید</li>
+    <li class="list-group-item">1 : آماده به ارسال</li>
+    <li class="list-group-item">2 : ارسال شده</li>
+    <li class="list-group-item">3 : تحویل داده شده</li>
 </ul>
 {% endblock %}
