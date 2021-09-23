@@ -9,7 +9,7 @@ from django.contrib import messages
 # Create your views here.
 
 def index(request):
-    list_of_products = get_list_or_404(Product)
+    list_of_products = Product.objects.all().order_by('-id')
     categories = get_list_or_404(Category)
     context = {
         'products': list_of_products,

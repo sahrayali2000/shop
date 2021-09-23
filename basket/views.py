@@ -50,3 +50,13 @@ def show_orders(request):
         'categories': categories
     }
     return render(request, 'basket/show-orders.html', context=context)
+
+def last_orders(request):
+    customer = get_object_or_404(Customer, user=request.user)
+    tha_basket = Basket.objects.filter(customer=customer).order_by('-id')[:3]
+    categories = Category.objects.all()
+    context = {
+        'the_basket': tha_basket,
+        'categories': categories
+    }
+    return render(request, 'basket/last-orders.html', context=context)
