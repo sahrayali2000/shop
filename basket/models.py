@@ -20,7 +20,7 @@ class Basket(models.Model):
     address = models.TextField()
 
     def __str__(self):
-        return f'{self.customer.first_name} {self.customer.last_name} {self.customer.zip_code}'
+        return f'{self.customer.first_name} {self.customer.last_name} zip code : {self.customer.zip_code}'
 
 
 class Coupon(models.Model):

@@ -39,6 +39,8 @@
     <tr>
 
       <th scope="col">مجموع قیمت سبد خرید</th>
+      <th scope="col">قیمت نهایی سبد خرید</th>
+      <th scope="col">تاریخ ثبت سفارش</th>
       <th scope="col">وضعیف پردازش سبد خرید</th>
     </tr>
   </thead>
@@ -46,6 +48,8 @@
     <tr>
 
       <td>{{ basket.total_amount }}</td>
+      <td>{{ basket.final_amount }}</td>
+      <td>{{ basket.date }}</td>
       <td>{{ basket.status }}</td>
     </tr>
 

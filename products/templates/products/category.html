@@ -6,7 +6,7 @@
 {% block content %}
 <div class="row">
 <div class="col-12">
-    <h3 style="text-align: center; margin-right: 7vw;">پست های مربوط به دسته بندی : {{ cat.name }}</h3>
+    <h3 style="text-align: center; margin-right: 7vw;">محصولات مربوط به دسته بندی : {{ cat.name }}</h3>
 </div>
 <br>
     {% for product in productions %}
@@ -14,7 +14,6 @@
         <div class="col-lg-4 col-md-4 col-sm-6 col-12">
             <div class="card" style="width: 22vw; margin-right: 1vw; margin-bottom: 2vw;">
               <img class="card-img-top" src="{{ product.image }}" alt="Card image cap">
-
               <div class="card-body">
                 <h5 class="card-title">{{ product.name }}</h5>
                 <p class="card-text"> توضیحات محصول : {{ product.discription }}</p>

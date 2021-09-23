@@ -29,8 +29,9 @@ def create_basket(request):
                     del request.session[f'{production.name}']
                     del request.session[f'numbers_{production.name}']
             basket_instance.total_amount = sum(TotalAmount)
+            basket_instance.final_amount = sum(TotalAmount)
             basket_instance.save()
-            return HttpResponse('done')
+            return redirect('basket:show-orders')
     else:
         basket_form = BasketForm()
         categories = get_list_or_404(Category)
