@@ -27,6 +27,13 @@ class CouponApi(mixins.ListModelMixin,
         if serializer.is_valid():
             address = serializer.validated_data['address']
             coupon = serializer.validated_data['coupon']
+            try:
+                the_coupon = get_object_or_404(Coupon, customers=customer)
+            except:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+            if the_coupon.coupon_number != coupon:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+
             the_basket = Basket(customer=customer, status=1, address=address)
             the_basket.save()
             for production in productions:
@@ -42,19 +49,9 @@ class CouponApi(mixins.ListModelMixin,
                     del request.session[f'{production.name}']
                     del request.session[f'numbers_{production.name}']
             the_basket.total_amount = sum(TotalAmount)
-            try:
-                the_coupon = get_object_or_404(Coupon, customers=customer)
-            except:
-                return Response(status=status.HTTP_400_BAD_REQUEST)
-            if the_coupon.coupon_number != coupon:
-                print('its wrong')
-                return Response(status=status.HTTP_400_BAD_REQUEST)
-
             the_basket.final_amount = sum(TotalAmount) - (((the_coupon.discount_percent * sum(TotalAmount)) / 100))
-
             the_basket.save()
             the_coupon.customers.remove(customer)
-
             the_coupon.save()
             MyData = {'total_amount': the_basket.total_amount, 'final_amount': the_basket.final_amount}
             return Response(data=MyData, status=status.HTTP_200_OK)
