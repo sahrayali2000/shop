@@ -17,16 +17,19 @@ class Basket(models.Model):
         (DELIVERED, 'delivered'),
     )
     status = models.IntegerField(choices=status_choices, default=1)
-    address = models.TextField()
+    address = models.TextField(verbose_name='آدرس')
 
     def __str__(self):
         return f'{self.customer.first_name} {self.customer.last_name} zip code : {self.customer.zip_code}'
 
 
 class Coupon(models.Model):
-    customers = models.ManyToManyField(Customer)
+    customers = models.ManyToManyField(Customer, null=True)
     discount_percent = models.PositiveSmallIntegerField()
     coupon_number = models.PositiveIntegerField()
+
+    def __str__(self):
+        return f'coupon number {self.coupon_number}'
 
 
 

@@ -19,8 +19,9 @@ def create_basket(request):
             basket_instance.status = 1
             for production in productions:
                 if production.name in all_sessions:
-                    TotalAmount.append(production.price)
                     order_num = request.session[f'numbers_{production.name}']
+                    for i in range(int(order_num)):
+                        TotalAmount.append(production.price)
                     order_num = int(order_num)
                     production.inventory -= order_num
                     basket_instance.product.add(production)
@@ -60,3 +61,4 @@ def last_orders(request):
         'categories': categories
     }
     return render(request, 'basket/last-orders.html', context=context)
+

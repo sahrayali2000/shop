@@ -5,3 +5,5 @@ class BasketForm(forms.ModelForm):
     class Meta:
         model = Basket
         fields = ['address']
+
+

@@ -6,13 +6,17 @@
 
 {% block content %}
 <div class="row">
-<form method="post" style="margin-right: 10vw;">
+<form method="post" id="MyForm" style="margin-right: 10vw;">
 {% load bootstrap4 %}
 
     {% csrf_token %}
     {% bootstrap_form basket_form %}
+        <label>کد تخفیف داری؟</label>
+    <input type="number" class="form-control" name="coupon">
     {% buttons %}
-    <input type="submit" id="submit" name="submit" value="نهایی کردن" class="btn btn-block btn-primary ">
+
+        <input class="btn btn-warning mt-3" id="submit-button" value="اعمال کد تخفیف">
+    <input type="submit" id="submit" name="submit" value="نهایی کردن" class="btn btn-block btn-primary mt-3">
     {% endbuttons %}
 </form>
 </div>
@@ -28,4 +32,33 @@
   <li class="list-group-item "><a href="{% url 'products:category' cat.id %}">{{ cat.name }}</a></li>
 {% endfor %}
 </ul>
+{% endblock %}
+{% block js %}
+
+    <script>
+    $(document).ready(function () {
+     var $crf_token = $('[name="csrfmiddlewaretoken"]').attr('value');
+     $("#submit-button").on('click', function (){
+       $.ajax({
+           url: "{% url 'couponapi:coupon' %}",
+           type: "POST",
+           dataType: "text",
+           headers:{"X-CSRFToken": $crf_token},
+      data: $('#MyForm').serialize(),
+           success: function (){
+               alert('سبد خرید با موفقیت ثبت شد');
+               window.location.href = "{% url 'basket:show-orders' %}";
+
+
+
+    },
+           error: function(xhr, resp, text) {
+                alert('کد تخفیف منقضی شده است')
+
+         }
+          });
+     });
+     });
+</script>
+
 {% endblock %}
