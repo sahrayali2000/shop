@@ -2,8 +2,11 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_list_or_404, get_object_or_404, redirect, HttpResponse
 from members.models import Customer
 from .forms import BasketForm
+from django.contrib import messages
 from products.models import Product, Category
-from .models import Basket
+from .models import Basket, Coupon
+
+
 # Create your views here.
 @login_required
 def create_basket(request):
@@ -32,7 +35,11 @@ def create_basket(request):
             basket_instance.total_amount = sum(TotalAmount)
             basket_instance.final_amount = sum(TotalAmount)
             basket_instance.save()
-            return redirect('basket:show-orders')
+            coupon = Coupon.objects.filter(is_active=True).first()
+            coupon.customers.add(customer)
+            messages.success(request,f' : کد تخفیف شما برای خرید بعدی {coupon.coupon_number}')
+            coupon.save()
+            return redirect('basket:basket')
     else:
         basket_form = BasketForm()
         categories = get_list_or_404(Category)
@@ -54,7 +61,7 @@ def show_orders(request):
 
 def last_orders(request):
     customer = get_object_or_404(Customer, user=request.user)
-    tha_basket = Basket.objects.filter(customer=customer).order_by('-id')[:3]
+    tha_basket = Basket.objects.filter(customer=customer).order_by('-date')[:10]
     categories = Category.objects.all()
     context = {
         'the_basket': tha_basket,

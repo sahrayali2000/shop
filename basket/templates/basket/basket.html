@@ -5,7 +5,10 @@
 {% endblock %}
 
 {% block content %}
-<div class="row">
+    <div class="row" id="response-basket-info">
+
+    </div>
+<div class="row" id="basket-info">
 <form method="post" id="MyForm" style="margin-right: 10vw;">
 {% load bootstrap4 %}
 
@@ -46,9 +49,8 @@
            headers:{"X-CSRFToken": $crf_token},
       data: $('#MyForm').serialize(),
            success: function (){
-               alert('سبد خرید با موفقیت ثبت شد');
-               window.location.href = "{% url 'basket:show-orders' %}";
-
+            alert('تخفیف با موفقیت اعمال شد');
+            window.location.href = "{% url 'basket:show-orders' %}";
 
 
     },
@@ -60,5 +62,22 @@
      });
      });
 </script>
+           {% if messages %}
 
+            {% for message in messages %}
+                <div class="message-flash">
+                </div>
+                <script>
+                            //write this above first
+        let a=document.createElement('a');
+        a.href="{% url 'basket:show-orders' %}";
+        //then use this code for alert
+        if (window.confirm('{{ message }}'))
+        {
+        a.click();
+        };
+                </script>
+            {% endfor %}
+
+    {% endif %}
 {% endblock %}

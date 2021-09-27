@@ -1,6 +1,7 @@
 from django.db import models
 from products.models import Product
 from members.models import Customer
+from datetime import date, datetime
 # Create your models here.
 class Basket(models.Model):
     product = models.ManyToManyField(Product, null=True)
@@ -27,9 +28,14 @@ class Coupon(models.Model):
     customers = models.ManyToManyField(Customer, null=True)
     discount_percent = models.PositiveSmallIntegerField()
     coupon_number = models.PositiveIntegerField()
+    expire_date = models.DateField(null=True, blank=True)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return f'coupon number {self.coupon_number}'
+
+
+
 
 
 
