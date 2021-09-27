@@ -58,7 +58,7 @@ class CouponApi(mixins.ListModelMixin,
             the_basket.final_amount = sum(TotalAmount) - (((the_coupon.discount_percent * sum(TotalAmount)) / 100))
             MyData.update({'total_amount': the_basket.total_amount, 'final_amount': the_basket.final_amount,})
             the_basket.save()
-            # the_coupon.customers.remove(customer)
+            the_coupon.customers.remove(customer)
             the_coupon.save()
             return Response(data=MyData, status=status.HTTP_200_OK)
         else:

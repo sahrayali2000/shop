@@ -1,4 +1,6 @@
 from django.contrib.auth.decorators import login_required
+from django.core import paginator
+from django.core.paginator import PageNotAnInteger, EmptyPage
 from django.shortcuts import render, get_list_or_404, get_object_or_404, redirect
 
 from members.models import Customer
@@ -9,7 +11,15 @@ from django.contrib import messages
 # Create your views here.
 
 def index(request):
-    list_of_products = Product.objects.all().order_by('-id')
+    list_of_products = paginator.Paginator(Product.objects.all().order_by('-id'), 2)
+    page = request.GET.get('page',1)
+    try:
+        list_of_products = list_of_products.page(page)
+    except PageNotAnInteger:
+        list_of_products = list_of_products.page(1)
+    except EmptyPage:
+        list_of_products = list_of_products.page(list_of_products.num_pages)
+
     categories = get_list_or_404(Category)
     context = {
         'products': list_of_products,
@@ -29,8 +39,11 @@ def product_detail(request, pk):
 @login_required
 def order_product(request, pk):
     production = get_object_or_404(Product, id=pk)
+    list_of_sessions = list(request.session.keys())
     if request.method == 'POST':
         production_name = production.name
+        if production_name in list_of_sessions:
+            request.session[f'numbers_{production_name}'] += request.POST['num']
         request.session.set_expiry(999999)
         request.session[f'{production_name}'] = production_name
         request.session[f'numbers_{production_name}'] = request.POST['num']

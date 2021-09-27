@@ -3,6 +3,10 @@ body {
     text-align: right;
 
 }
+/*@font-face {*/
+/*    font-family: iransans;*/
+/*    src: url("../fonts/FontsFree-Net-ir_sans.ttf");*/
+/*}*/
 a:hover {
     text-decoration: none;
 }
