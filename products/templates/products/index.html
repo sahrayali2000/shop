@@ -25,23 +25,23 @@
 
 
     {% if products.has_other_pages %}
-  <ul class="pagination">
+  <ul class="pagination" style="margin-right: 40vw; margin-top: 8vw;">
     {% if products.has_previous %}
-      <li><a href="?page={{ products.previous_page_number }}">&laquo;</a></li>
+      <li><a class="btn btn-sm btn-primary" style="margin-left: 1vw;" href="?page={{ products.previous_page_number }}">&laquo;</a></li>
     {% else %}
-      <li class="disabled"><span>&laquo;</span></li>
+      <li class="disabled"><span style="margin-left: 1vw;" class="btn btn-sm btn-primary">&laquo;</span></li>
     {% endif %}
     {% for i in products.paginator.page_range %}
       {% if products.number == i %}
-        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+        <li class="active"><span class="btn btn-sm btn-primary" style="margin-left: 1vw;">{{ i }} <span class="sr-only">(current)</span></span></li>
       {% else %}
-        <li><a href="?page={{ i }}">{{ i }}</a></li>
+        <li><a class="btn btn-sm btn-primary" style="margin-left: 1vw;" href="?page={{ i }}">{{ i }}</a></li>
       {% endif %}
     {% endfor %}
     {% if products.has_next %}
-      <li><a href="?page={{ products.next_page_number }}">&raquo;</a></li>
+      <li><a class="btn btn-sm btn-primary" style="margin-left: 1vw;" href="?page={{ products.next_page_number }}">&raquo;</a></li>
     {% else %}
-      <li class="disabled"><span>&raquo;</span></li>
+      <li class="disabled"><span class="btn btn-sm btn-primary" style="margin-left: 1vw;">&raquo;</span></li>
     {% endif %}
   </ul>
 {% endif %}
