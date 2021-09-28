@@ -26,6 +26,31 @@
     {% endfor %}
 </div>
 
+
+
+
+    {% if productions.has_other_pages %}
+  <ul class="pagination" style="margin-right: 40vw; margin-top: 8vw;">
+    {% if productions.has_previous %}
+      <li><a class="btn btn-sm btn-primary" style="margin-left: 1vw;" href="?page={{ productions.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span style="margin-left: 1vw;" class="btn btn-sm btn-primary">&laquo;</span></li>
+    {% endif %}
+    {% for i in productions.paginator.page_range %}
+      {% if productions.number == i %}
+        <li class="active"><span class="btn btn-sm btn-primary" style="margin-left: 1vw;">{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a class="btn btn-sm btn-primary" style="margin-left: 1vw;" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if productions.has_next %}
+      <li><a class="btn btn-sm btn-primary" style="margin-left: 1vw;" href="?page={{ productions.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span class="btn btn-sm btn-primary" style="margin-left: 1vw;">&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+
 {% endblock %}
 
 {% block sidebar %}

@@ -51,7 +51,7 @@ def create_basket(request):
 
 def show_orders(request):
     customer = get_object_or_404(Customer, user=request.user)
-    the_basket = get_list_or_404(Basket, customer=customer)
+    the_basket = Basket.objects.filter(customer=customer).order_by('-id')
     categories = Category.objects.all()
     context = {
         'the_basket': the_basket,

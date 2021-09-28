@@ -11,7 +11,7 @@ from django.contrib import messages
 # Create your views here.
 
 def index(request):
-    list_of_products = paginator.Paginator(Product.objects.all().order_by('-id'), 2)
+    list_of_products = paginator.Paginator(Product.objects.all().order_by('-id'), 6)
     page = request.GET.get('page',1)
     try:
         list_of_products = list_of_products.page(page)
@@ -60,7 +60,16 @@ def order_product(request, pk):
 
 def category(request, pk):
     cat = get_object_or_404(Category, id=pk)
-    productions = get_list_or_404(Product, category=cat)
+    productions = paginator.Paginator(Product.objects.filter(category=cat).order_by('-id'), 6)
+    page = request.GET.get('page',1)
+
+    try:
+        productions = productions.page(page)
+    except PageNotAnInteger:
+        productions = productions.page(1)
+    except EmptyPage:
+        productions = productions.page(productions.num_pages)
+
     categories = get_list_or_404(Category)
     context = {
         'cat': cat,

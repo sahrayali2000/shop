@@ -20,6 +20,7 @@
     <input type="text" class="form-control" name="username">
     <label class="label">پسورد</label>
     <input type="password" class="form-control" name="password">
+    <input type="text" hidden value="{{ request.GET.next }}" name="next">
     <br>
     <input type="submit" value="ورود" class="btn btn-block btn-primary">
 
