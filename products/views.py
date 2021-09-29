@@ -42,20 +42,20 @@ def order_product(request, pk):
     list_of_sessions = list(request.session.keys())
     if request.method == 'POST':
         production_name = production.name
+        num = int(request.POST['num'])
+        if num > production.inventory:
+            messages.error(request,'تعداد مورد نظر از موجودی بیشتر است')
+            return redirect('products:detail', pk=production.id)
         if production_name in list_of_sessions:
             request.session[f'numbers_{production_name}'] += request.POST['num']
         request.session.set_expiry(999999)
         request.session[f'{production_name}'] = production_name
         request.session[f'numbers_{production_name}'] = request.POST['num']
-        num = int(request.POST['num'])
-        if num > production.inventory:
-            messages.error(request,'تعداد مورد نظر از موجودی بیشتر است')
-            return redirect('products:detail', pk=production.id)
+
 
         messages.success(request, 'با موفقیت به سبد خرید اضافه شد')
         return redirect('products:detail', pk=production.id)
     else:
-        messages.error(request, 'مشکلی در اضافه کردن به سبد خرید به وجود آمد')
         return redirect('products:detail', pk=production.id)
 
 def category(request, pk):
