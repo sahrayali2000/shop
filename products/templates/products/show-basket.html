@@ -7,11 +7,13 @@
 {% if products %}
     <div class="row">
     {% for pro in products %}
+
         <div class="col-lg-6 col-md-6 col-sm-12 col-12">
         <div class="card" style="width: 32vw; margin-right: 2vw;">
       <img class="card-img-top" src="/media/{{ pro.image }}" style="width: 15vw; height: 20vh;" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">{{ pro.name }}</h5>
+
         <p class="card-text">{{ pro.discription }}</p>
         <a href="{% url 'products:delete-basket-item' pro.name %}" class="btn btn-danger btn-sm">حذف از سبد</a>
       </div>

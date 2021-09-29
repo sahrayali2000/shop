@@ -93,7 +93,8 @@ def show_basket(request):
     categories = get_list_or_404(Category)
     context = {
         'products': products,
-        'categories': categories
+        'categories': categories,
+
     }
     return render(request, 'products/show-basket.html', context=context)
 
