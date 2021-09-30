@@ -21,9 +21,11 @@ def index(request):
         list_of_products = list_of_products.page(list_of_products.num_pages)
 
     categories = get_list_or_404(Category)
+    newest_products = Product.objects.all().order_by('-id')[:4]
     context = {
         'products': list_of_products,
-        'categories': categories
+        'categories': categories,
+        'newest_products': newest_products
     }
     return render(request, 'products/index.html', context=context)
 

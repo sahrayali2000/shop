@@ -3,8 +3,75 @@
 صفحه اصلی
 {% endblock %}
 
-{% block content %}
+{% block newpost %}
+    <div style="text-align: center; margin-bottom:2vh; width: 97vw; background-color: #1e347b; color: white;">
+        <hr>
+        <h3>جدیدترین محصولات</h3>
+        <hr>
+    </div>
 <div class="row">
+
+
+    {% for pro in newest_products %}
+    <div class="col-lg-3 col-md-3 col-sm-6 col-6">
+         <div class="card" style="width: 22vw; height: auto; margin-bottom: 2vw; margin-left: 5px;">
+             <img class="card-img-top" style="width: 20vw; height: 25vh;" src="/media/{{ pro.image }}" alt="Card image cap">
+
+             <div class="card-body">
+                  <h5 class="card-title">{{ pro.name }}</h5>
+                <p class="card-text"> قیمت : {{ pro.price }}</p>
+               <a href="{% url 'products:detail' pro.id %}" class="btn btn-primary" style="float: right">مشاهده محصول</a>
+
+             </div>
+
+         </div>
+
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
+
+{% block center %}
+
+{#    <ul class="list-group" style="margin-left: 1vw;">#}
+{#  <li class="list-group-item category-sidebar">دسته بندی ها</li>#}
+{##}
+{##}
+{#  <li class="list-group-item "><a href="{% url 'products:category' cat.id %}">{{ cat.name }}</a></li>#}
+{#{% endfor %}#}
+{#</ul>#}
+        <div style="text-align: center; margin-bottom:2vh; width: 97vw; background-color: #1e347b; color: white;">
+        <hr>
+        <h3>دسته بندی ها</h3>
+        <hr>
+    </div>
+<div class="row">
+{% for cat in categories %}
+
+    <div class="col-lg-3 col-md-3 col-sm-6 col-6">
+         <div class="card" style="width: 22vw; height: auto; margin-bottom: 2vw; margin-left: 5px;">
+             <div class="card-body">
+                <h5 class="card-title">{{ cat.name }}</h5>
+                 <a href="{% url 'products:category' cat.id %}" class="btn btn-primary" style="float: right">مشاهده دسته بندی</a>
+
+             </div>
+        </div>
+    </div>
+{% endfor %}
+</div>
+{% endblock %}
+
+
+{% block content %}
+
+    <div style="text-align: center; margin-bottom:2vh; width: 97vw; background-color: #1e347b; color: white;">
+    <hr>
+        <h3>همه محصولات</h3>
+    <hr>
+    </div>
+    <div class="row">
+
     {% for product in products %}
         <div class="col-lg-4 col-md-4 col-sm-6 col-12">
             <div class="card" style="width: 22vw; height: 60vh; margin-bottom: 2vw; margin-left: 5px;">
@@ -46,15 +113,5 @@
   </ul>
 {% endif %}
 
-{% endblock %}
 
-{% block sidebar %}
-<ul class="list-group" style="margin-left: 1vw;">
-  <li class="list-group-item category-sidebar">دسته بندی ها</li>
-
-{% for cat in categories %}
-
-  <li class="list-group-item "><a href="{% url 'products:category' cat.id %}">{{ cat.name }}</a></li>
-{% endfor %}
-</ul>
 {% endblock %}
