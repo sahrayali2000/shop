@@ -12,7 +12,7 @@ class Category(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=200)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='product/images')
+    image = models.ImageField(upload_to='product/images', null=True, blank=True)
     discription = models.TextField()
     price = models.IntegerField()
     inventory = models.IntegerField()

@@ -49,12 +49,12 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request=request, user=user)
-            if 'next' in request.POST:
-                return HttpResponseRedirect(request.POST["next"])
+            # if 'next' in request.POST:
+            #     return HttpResponseRedirect(request.POST["next"])
             return redirect('products:index')
         else:
             messages.error(request, 'نام کاربری یا کلمه عبور صحیح نیست')
-            return redirect('accounts:login')
+            return render(request, 'accounts/login.html', context={},status=403)
     else:
 
         return render(request, 'accounts/login.html', context={})

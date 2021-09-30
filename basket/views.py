@@ -48,7 +48,7 @@ def create_basket(request):
             'categories': categories,
         }
         return render(request, 'basket/basket.html', context=context)
-
+@login_required
 def show_orders(request):
     customer = get_object_or_404(Customer, user=request.user)
     the_basket = Basket.objects.filter(customer=customer).order_by('-id')
@@ -58,7 +58,7 @@ def show_orders(request):
         'categories': categories
     }
     return render(request, 'basket/show-orders.html', context=context)
-
+@login_required
 def last_orders(request):
     customer = get_object_or_404(Customer, user=request.user)
     tha_basket = Basket.objects.filter(customer=customer).order_by('-date')[:10]
@@ -68,4 +68,10 @@ def last_orders(request):
         'categories': categories
     }
     return render(request, 'basket/last-orders.html', context=context)
+@login_required
+def submitted_addresses(request):
+    customer = get_object_or_404(Customer, user=request.user)
+    the_basket = get_list_or_404(Basket, customer=customer)
+    categories = Category.objects.all()
+
 

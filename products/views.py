@@ -51,8 +51,6 @@ def order_product(request, pk):
         request.session.set_expiry(999999)
         request.session[f'{production_name}'] = production_name
         request.session[f'numbers_{production_name}'] = request.POST['num']
-
-
         messages.success(request, 'با موفقیت به سبد خرید اضافه شد')
         return redirect('products:detail', pk=production.id)
     else:
@@ -94,7 +92,6 @@ def show_basket(request):
     context = {
         'products': products,
         'categories': categories,
-
     }
     return render(request, 'products/show-basket.html', context=context)
 
