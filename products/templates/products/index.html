@@ -2,7 +2,34 @@
 {% block title %}
 صفحه اصلی
 {% endblock %}
+{% block recommendedproducts %}
+    <div style=" border-radius: 15px; text-align: center; margin-bottom:2vh; width: 96vw; background-color: #1e347b; color: white;">
+        <hr>
+        <h3>محصولات پیشنهادی</h3>
+        <hr>
+    </div>
+<div class="row">
 
+
+    {% for pro in recommendedـproducts %}
+    <div class="col-lg-3 col-md-3 col-sm-6 col-6">
+         <div class="card" style="width: 22vw; height: auto; margin-bottom: 2vw; margin-left: 5px;">
+             <img class="card-img-top" style="width: 20vw; height: 25vh;" src="/media/{{ pro.image }}" alt="Card image cap">
+
+             <div class="card-body">
+                  <h5 class="card-title">{{ pro.name }}</h5>
+                <p class="card-text"> قیمت : {{ pro.price }}</p>
+               <a href="{% url 'products:detail' pro.id %}" class="btn btn-primary" style="float: right">مشاهده محصول</a>
+
+             </div>
+
+         </div>
+
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
 {% block newpost %}
     <div style=" border-radius: 15px; text-align: center; margin-bottom:2vh; width: 96vw; background-color: #1e347b; color: white;">
         <hr>
@@ -80,7 +107,8 @@
 
               <div class="card-body">
                 <h5 class="card-title">{{ product.name }}</h5>
-                <p class="card-text"> دسته بندی : {{ product.category }}</p>
+                <p class="card-text">دسته بندی : <a href="{% url 'products:category' product.category.id %}" style="margin-right: 0.5vw;">{{ product.category.name }}</a>
+</p>
                 <p class="card-text"> قیمت : {{ product.price }}</p>
                 <a href="{% url 'products:detail' product.id %}" class="btn btn-primary" style="float: right">مشاهده محصول</a>
 

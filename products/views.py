@@ -1,3 +1,5 @@
+from random import randint
+
 from django.contrib.auth.decorators import login_required
 from django.core import paginator
 from django.core.paginator import PageNotAnInteger, EmptyPage
@@ -22,10 +24,17 @@ def index(request):
 
     categories = get_list_or_404(Category)
     newest_products = Product.objects.all().order_by('-id')[:4]
+
+    products_len = len(Product.objects.all())
+    second_num = randint(4, products_len)
+    first_num = second_num - 4
+
+    recommendedـproducts = Product.objects.all().order_by('id')[first_num:second_num]
     context = {
         'products': list_of_products,
         'categories': categories,
-        'newest_products': newest_products
+        'newest_products': newest_products,
+        'recommendedـproducts': recommendedـproducts,
     }
     return render(request, 'products/index.html', context=context)
 
