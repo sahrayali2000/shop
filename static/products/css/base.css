@@ -1,11 +1,11 @@
 @font-face {
-    font-family: 'bnazanin';
-    src: url("../fonts/B-NAZANIN.TTF");
+    font-family: 'byekan';
+    src: url("../fonts/Yekan.ttf");
 }
 body {
     direction: rtl;
     text-align: right;
-    font-family: 'bnazanin', Arial;
+    font-family: 'byekan', Arial;
 }
 
 a:hover {

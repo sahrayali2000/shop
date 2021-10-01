@@ -2,13 +2,37 @@
 {% block title %}
 صفحه اصلی
 {% endblock %}
-
-{% block content %}
+{% block center %}
+        <div style=" border-radius: 15px; text-align: center; margin-bottom:2vh; width: 96vw; background-color: #1e347b; color: white;">
+        <hr>
+        <h3>دسته بندی ها</h3>
+        <hr>
+    </div>
 <div class="row">
-<div class="col-12">
-    <h3 style="text-align: center; margin-right: 7vw;">محصولات مربوط به دسته بندی : {{ cat.name }}</h3>
+{% for cat in categories %}
+
+    <div class="col-lg-3 col-md-3 col-sm-6 col-6">
+         <div class="card" style="width: 22vw; height: auto; margin-bottom: 2vw; margin-left: 5px; text-align: center;">
+             <div class="card-body">
+                 <img class="card-img-top" style="width: 10vw; height: 15vh; margin-right: 1vw;" src="/media/{{ cat.image }}" alt="Card image cap">
+                <h5 class="card-title mt-3">{{ cat.name }}</h5>
+                 <a href="{% url 'products:category' cat.id %}" class="btn btn-primary" style="margin-right: 0.5vw;">مشاهده دسته بندی</a>
+
+             </div>
+        </div>
+    </div>
+{% endfor %}
 </div>
-<br>
+{% endblock %}
+{% block content %}
+            <div style=" border-radius: 15px; text-align: center; margin-bottom:2vh; width: 96vw; background-color: #1e347b; color: white;">
+        <hr>
+        <h3>محصولات مرتبط با دسته بندی {{ cat.name }}</h3>
+        <hr>
+    </div>
+<div class="row">
+
+
     {% for product in productions %}
         <div class="col-lg-4 col-md-4 col-sm-6 col-12">
             <div class="card" style="width: 22vw; margin-right: 1vw; margin-bottom: 2vw;">
@@ -53,13 +77,3 @@
 
 {% endblock %}
 
-{% block sidebar %}
-<ul class="list-group" style="margin-left: 1vw;">
-  <li class="list-group-item category-sidebar">دسته بندی ها</li>
-
-{% for category in categories %}
-
-    <li class="list-group-item "><a href="{% url 'products:category' category.id %}">{{ category.name }}</a></li>
-{% endfor %}
-</ul>
-{% endblock %}

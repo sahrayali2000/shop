@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block newpost %}
-    <div style="text-align: center; margin-bottom:2vh; width: 97vw; background-color: #1e347b; color: white;">
+    <div style=" border-radius: 15px; text-align: center; margin-bottom:2vh; width: 96vw; background-color: #1e347b; color: white;">
         <hr>
         <h3>جدیدترین محصولات</h3>
         <hr>
@@ -41,7 +41,7 @@
 {#  <li class="list-group-item "><a href="{% url 'products:category' cat.id %}">{{ cat.name }}</a></li>#}
 {#{% endfor %}#}
 {#</ul>#}
-        <div style="text-align: center; margin-bottom:2vh; width: 97vw; background-color: #1e347b; color: white;">
+        <div style="text-align: center; margin-bottom:2vh; width: 96vw; background-color: #1e347b; color: white; border-radius: 15px;">
         <hr>
         <h3>دسته بندی ها</h3>
         <hr>
@@ -50,10 +50,11 @@
 {% for cat in categories %}
 
     <div class="col-lg-3 col-md-3 col-sm-6 col-6">
-         <div class="card" style="width: 22vw; height: auto; margin-bottom: 2vw; margin-left: 5px;">
+         <div class="card" style="width: 22vw; height: auto; margin-bottom: 2vw; margin-left: 5px; text-align: center;">
              <div class="card-body">
-                <h5 class="card-title">{{ cat.name }}</h5>
-                 <a href="{% url 'products:category' cat.id %}" class="btn btn-primary" style="float: right">مشاهده دسته بندی</a>
+                 <img class="card-img-top" style="width: 10vw; height: 15vh; margin-right: 1vw;" src="/media/{{ cat.image }}" alt="Card image cap">
+                <h5 class="card-title mt-3">{{ cat.name }}</h5>
+                 <a href="{% url 'products:category' cat.id %}" class="btn btn-primary" style="margin-right: 0.5vw;">مشاهده دسته بندی</a>
 
              </div>
         </div>
@@ -65,7 +66,7 @@
 
 {% block content %}
 
-    <div style="text-align: center; margin-bottom:2vh; width: 97vw; background-color: #1e347b; color: white;">
+    <div style="border-radius: 15px; text-align: center; margin-bottom:2vh; width: 96vw; background-color: #1e347b; color: white;">
     <hr>
         <h3>همه محصولات</h3>
     <hr>
@@ -74,7 +75,7 @@
 
     {% for product in products %}
         <div class="col-lg-4 col-md-4 col-sm-6 col-12">
-            <div class="card" style="width: 22vw; height: 60vh; margin-bottom: 2vw; margin-left: 5px;">
+            <div class="card" style="width: 22vw; height: 60vh; margin-bottom: 2vw; margin-right: 5vw;">
               <img class="card-img-top" style="width: 20vw; height: 25vh;" src="/media/{{ product.image }}" alt="Card image cap">
 
               <div class="card-body">

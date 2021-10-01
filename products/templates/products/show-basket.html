@@ -8,8 +8,8 @@
     <div class="row">
     {% for pro in products %}
 
-        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-        <div class="card" style="width: 32vw; margin-right: 2vw;">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+        <div class="card" style="width: 32vw; margin-top: 2vh;">
       <img class="card-img-top" src="/media/{{ pro.image }}" style="width: 15vw; height: 20vh;" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">{{ pro.name }}</h5>
@@ -20,7 +20,7 @@
     </div>
         </div>
     {% endfor %}
-<div class="col-12" style="margin-right: 2vw;">
+<div class="col-12">
     <a href="{% url 'basket:basket' %}" class="btn btn-block btn-primary mt-5">نهایی کردن خرید</a>
     </div>
     </div>
