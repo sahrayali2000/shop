@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'static/products/css/base.css' %}">
+
 <style>
     @font-face {
         font-family: 'byekan';
@@ -12,7 +15,7 @@
     body {
     direction: rtl;
     text-align: right;
-    font-family: 'byekan', Arial;
+
 }
     a:hover {
             text-decoration: none;
@@ -44,10 +47,10 @@
     </title>
 </head>
 <body>
-
+<div class="container-fluid">
 {% if user.is_authenticated %}
 
-<nav class="navbar navbar-expand-lg navbar-dark teal mb-4">
+<nav class="navbar navbar-expand-lg navbar-dark teal mb-4" style="border-radius: 15px;">
                 <a class="navbar-brand" href="{% url 'products:index' %}">فروشگاه</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -76,7 +79,7 @@
             <!--/.Navbar blue-->
 
     {% else %}
-<nav class="navbar navbar-expand-lg navbar-dark teal mb-4">
+<nav class="navbar navbar-expand-lg navbar-dark teal mb-4" style="border-radius: 15px;">
                 <a class="navbar-brand" href="{% url 'products:index' %}">فروشگاه</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -114,6 +117,7 @@
 {% block sidebar %}
 
 {% endblock %}
+</div>
 </div>
 </div>
 </div>

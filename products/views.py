@@ -39,11 +39,16 @@ def index(request):
     return render(request, 'products/index.html', context=context)
 
 def product_detail(request, pk):
-    categories = get_list_or_404(Category)
+
     my_product = get_object_or_404(Product, id=pk)
+    product_category = my_product.category
+    products_len = len(Product.objects.all())
+    second_num = randint(3, products_len)
+    first_num = second_num - 3
+    related_products = Product.objects.filter(category=product_category).order_by('-id')[first_num:second_num]
     context = {
         'my_product': my_product,
-        'categories': categories
+        'related_products': related_products
     }
     return render(request, 'products/detail.html', context=context)
 

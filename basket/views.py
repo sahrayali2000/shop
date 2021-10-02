@@ -36,10 +36,12 @@ def create_basket(request):
             basket_instance.final_amount = sum(TotalAmount)
             basket_instance.save()
             coupon = Coupon.objects.filter(is_active=True).first()
-            coupon.customers.add(customer)
-            messages.success(request,f' : کد تخفیف شما برای خرید بعدی {coupon.coupon_number}')
-            coupon.save()
-            return redirect('basket:basket')
+            if coupon:
+                coupon.customers.add(customer)
+                messages.success(request,f' : کد تخفیف شما برای خرید بعدی {coupon.coupon_number}')
+                coupon.save()
+
+            return redirect('basket:show-orders')
     else:
         basket_form = BasketForm()
         categories = get_list_or_404(Category)
