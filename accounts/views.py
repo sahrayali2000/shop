@@ -70,7 +70,7 @@ def complete_register(request):
                 customer_instance.save()
                 return redirect('accounts:profile')
             else :
-                messages.error(request, 'مشکلی پیش آمده است')
+                messages.error(request,'مشکلی پیش آمده است')
                 return redirect('accounts:complete-register')
         else:
             try:

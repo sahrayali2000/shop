@@ -54,6 +54,11 @@ def product_detail(request, pk):
 
 @login_required
 def order_product(request, pk):
+    try:
+        customer = get_object_or_404(Customer, user=request.user)
+    except:
+        return redirect('accounts:complete-register')
+
     production = get_object_or_404(Product, id=pk)
     list_of_sessions = list(request.session.keys())
     if request.method == 'POST':
@@ -94,6 +99,11 @@ def category(request, pk):
 
 @login_required
 def show_basket(request):
+    try:
+        customer = get_object_or_404(Customer, user=request.user)
+    except:
+        return redirect('accounts:complete-register')
+
     list_of_sessions = list(request.session.keys())
     productions = get_list_or_404(Product)
     list_of_basket = []
@@ -113,5 +123,10 @@ def show_basket(request):
 
 @login_required
 def delete_basket_item(request, production_name):
+    try:
+        customer = get_object_or_404(Customer, user=request.user)
+    except:
+        return redirect('accounts:complete-register')
+
     del request.session[f'{production_name}']
     return redirect('products:show-basket')

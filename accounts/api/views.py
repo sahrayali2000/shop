@@ -67,8 +67,10 @@ class ChangePasswordApi(mixins.ListModelMixin,
                     user.save()
                     return Response(status=status.HTTP_200_OK)
                 else:
+                    print('ok')
                     return Response(status=status.HTTP_400_BAD_REQUEST)
         else:
+            print('ok1')
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 ####

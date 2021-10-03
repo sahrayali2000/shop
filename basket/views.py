@@ -10,8 +10,12 @@ from .models import Basket, Coupon
 # Create your views here.
 @login_required
 def create_basket(request):
+    try:
+        customer = get_object_or_404(Customer, user=request.user)
+    except:
+        return redirect('accounts:complete-register')
+
     all_sessions = list(request.session.keys())
-    customer = get_object_or_404(Customer, user=request.user)
     productions = get_list_or_404(Product)
     TotalAmount = []
     if request.method == 'POST':
@@ -52,7 +56,10 @@ def create_basket(request):
         return render(request, 'basket/basket.html', context=context)
 @login_required
 def show_orders(request):
-    customer = get_object_or_404(Customer, user=request.user)
+    try:
+        customer = get_object_or_404(Customer, user=request.user)
+    except:
+        return redirect('accounts:complete-register')
     the_basket = Basket.objects.filter(customer=customer).order_by('-id')
     categories = Category.objects.all()
     context = {
@@ -62,7 +69,10 @@ def show_orders(request):
     return render(request, 'basket/show-orders.html', context=context)
 @login_required
 def last_orders(request):
-    customer = get_object_or_404(Customer, user=request.user)
+    try:
+        customer = get_object_or_404(Customer, user=request.user)
+    except:
+        return redirect('accounts:complete-register')
     tha_basket = Basket.objects.filter(customer=customer).order_by('-date')[:10]
     categories = Category.objects.all()
     context = {
@@ -72,7 +82,10 @@ def last_orders(request):
     return render(request, 'basket/last-orders.html', context=context)
 @login_required
 def submitted_addresses(request):
-    customer = get_object_or_404(Customer, user=request.user)
+    try:
+        customer = get_object_or_404(Customer, user=request.user)
+    except:
+        return redirect('accounts:complete-register')
     the_basket = get_list_or_404(Basket, customer=customer)
     categories = Category.objects.all()
 

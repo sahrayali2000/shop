@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate
 from django.test import TestCase, Client
 from members.models import Customer
 from .views import (login_view,logout_view, profile, edit_profile,
@@ -13,7 +13,7 @@ from products.models import Product, Category
 
 class TestAuthentication(TestCase):
     def setUp(self) -> None:
-        self.user = User.objects.create_user(username='vahid',password='7607')
+        self.user = User.objects.create_user(username='vahid',password='7607', phone='123456789')
         self.user.save()
         self.category = Category(name='first')
         self.category.save()
@@ -39,3 +39,27 @@ class TestAuthentication(TestCase):
         },follow=True)
         self.assertEqual(response.status_code, 200)
 
+    def test_complete_register(self):
+        user = Client()
+        response = user.post(reverse('accounts:complete-register'), data={
+            'first_name': 'vahidi',
+            'last_name': 'vahidii',
+        }, follow=True)
+        self.assertEqual(response.status_code, 200)
+
+    def test_forget_password(self):
+        user = Client()
+        response = user.post(reverse('authapi:forget-password'), data={
+            'username': 'vahid',
+            'phone': '123456789'
+        },follow=True)
+        self.assertEqual(response.status_code, 200)
+
+    def test_change_password(self):
+        user = Client()
+        response = user.post(reverse('authapi:change-password'),data={
+            'password': '123456',
+            're_password': '123456',
+            'user': user
+        },follow=True)
+        self.assertEqual(response.status_code, 200)
