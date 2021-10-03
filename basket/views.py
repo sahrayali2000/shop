@@ -88,5 +88,10 @@ def submitted_addresses(request):
         return redirect('accounts:complete-register')
     the_basket = get_list_or_404(Basket, customer=customer)
     categories = Category.objects.all()
+    context = {
+        'the_basket': the_basket,
+        'categories': categories
+    }
+    return render(request, 'basket/submitten-addresses.html', context=context)
 
 

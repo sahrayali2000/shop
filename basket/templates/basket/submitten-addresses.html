@@ -1,0 +1,48 @@
+{% extends 'basket/base.html' %}
+{% block title %}
+
+    لیست آدرس های ثبت شده
+{% endblock %}
+
+{% block content %}
+    <div class="container" style="margin-right: 5vw;">
+    <div class="row">
+{% for basket in the_basket %}
+
+    <table class="table table-hover">
+  <thead>
+    <tr>
+
+      <th scope="col">آدرس  خرید شماره :{{ forloop.counter }}</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+
+      <td>{{ basket.address }}</td>
+
+    </tr>
+
+  </tbody>
+</table>
+
+
+
+
+{% endfor %}
+</div>
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+<ul class="list-group" style="margin-left: 1vw; margin-bottom: 3vh;">
+  <li class="list-group-item category-sidebar">دسته بندی ها</li>
+
+{% for cat in categories %}
+
+  <li class="list-group-item "><a href="{% url 'products:category' cat.id %}">{{ cat.name }}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock %}
