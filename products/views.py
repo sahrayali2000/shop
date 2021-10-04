@@ -130,3 +130,4 @@ def delete_basket_item(request, production_name):
 
     del request.session[f'{production_name}']
     return redirect('products:show-basket')
+
