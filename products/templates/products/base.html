@@ -63,9 +63,10 @@
                         </li>
 
                     </ul>
-                    <form class="form-inline">
+                    <form class="form-inline" id="search_form">
                         {% csrf_token %}
-                        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="search_input">
+                        <input type="button" id="search_btn" class="btn btn-primary btn-sm" style="margin-right: 5px;" value="جستوجو">
                     </form>
                 </div>
             </nav>
@@ -130,13 +131,34 @@
            headers:{"X-CSRFToken": $crf_token},
       data: $('#search_form').serialize(),
            success: function (data){
-            console.log(data);
-            {#var result_url = "{% url  %}"#}
-            $('#search_result').append('<p>' + data + '</p>')
+            for (let mydata in data){
+                if (mydata = 'product') {
+                    for (let obj in data[mydata]){
+                        let sdata = data[mydata]
+                        var link = document.createElement('a');
+                        var link_text = document.createTextNode(obj);
+                        link.appendChild(link_text)
+                        link.href = '/detail/' + sdata[obj]
+                        $('#search_result').append(link);
+                    }
+                }
+            if (mydata = 'category'){
+                for (let obj in data[mydata]){
+                        let sdata = data[mydata]
+                        var link = document.createElement('a');
+                        var link_text = document.createTextNode(obj);
+                        link.appendChild(link_text)
+                        link.href = '/category/' + sdata[obj]
+                        $('#search_result').append(link);
+                    }
+            }
+
+            }
 
     },
            error: function(xhr, resp, text) {
                console.log(xhr, resp, text);
+               console.log(this.data)
 
          }
           });

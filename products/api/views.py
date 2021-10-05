@@ -21,12 +21,13 @@ class Search(mixins.ListModelMixin,
         if search_serializer.is_valid():
             try:
                 search_instance = get_object_or_404(Product, name__startswith=search_serializer.validated_data['search_input'])
-                data = {f'{search_instance.name}': search_instance.id}
+
+                data = {'product': {f'{search_instance.name}': search_instance.id}}
                 return Response(data=data, status=status.HTTP_200_OK)
             except:
                 try:
                     search_instance = get_object_or_404(Category, name__startswith=search_serializer.validated_data['search_input'])
-                    data = {f'{search_instance.name}': search_instance.id}
+                    data = {'category': {f'{search_instance.name}': search_instance.id}}
                     return Response(data=data, status=status.HTTP_200_OK)
                 except:
                     return Response(status=status.HTTP_400_BAD_REQUEST)
