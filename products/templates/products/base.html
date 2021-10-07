@@ -37,8 +37,7 @@
                     </ul>
                     <form class="form-inline" id="search_form">
                         {% csrf_token %}
-                        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="search_input">
-                        <input type="button" id="search_btn" class="btn btn-primary btn-sm" style="margin-right: 5px;" value="جستوجو">
+                        <input class="form-control mr-sm-2" type="text" placeholder="جستوجو کن" aria-label="Search" name="search_input" id="search_input">
                     </form>
                 </div>
             </nav>
@@ -65,8 +64,7 @@
                     </ul>
                     <form class="form-inline" id="search_form">
                         {% csrf_token %}
-                        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="search_input">
-                        <input type="button" id="search_btn" class="btn btn-primary btn-sm" style="margin-right: 5px;" value="جستوجو">
+                        <input class="form-control mr-sm-2" type="text" placeholder="جستوجو کن" aria-label="Search" name="search_input">
                     </form>
                 </div>
             </nav>
@@ -74,8 +72,8 @@
 {% endif %}
 </div>
 <div class="container-fluid">
-<div class="row">
-    <div id="search_result" class="col-12">
+<div class="row" style="text-align: left; margin-left: 2vw;">
+    <div id="search_result" class="col-12"  style="width: 100vw;height: auto; max-height: 20vh; overflow: auto;">
 
     </div>
 </div>
@@ -123,7 +121,8 @@
 
     $(document).ready(function () {
      var $crf_token = $('[name="csrfmiddlewaretoken"]').attr('value');
-     $("#search_btn").on('click', function (){
+        $('#search_result').empty();
+        $("#search_input").keyup(function (){
        $.ajax({
            url: "{% url 'productapi:search' %}",
            type: "POST",
@@ -131,6 +130,8 @@
            headers:{"X-CSRFToken": $crf_token},
       data: $('#search_form').serialize(),
            success: function (data){
+
+               $('#search_result').empty()
             for (let mydata in data){
                 if (mydata = 'product') {
                     for (let obj in data[mydata]){
@@ -140,8 +141,9 @@
                         link.appendChild(link_text)
                         link.href = '/detail/' + sdata[obj]
                         $('#search_result').append(link);
+                        $('#search_result').append('<br>');
                     }
-                }
+                    }
             if (mydata = 'category'){
                 for (let obj in data[mydata]){
                         let sdata = data[mydata]
@@ -157,8 +159,10 @@
 
     },
            error: function(xhr, resp, text) {
-               console.log(xhr, resp, text);
-               console.log(this.data)
+
+               $('#search_result').empty()
+               $('#search_result').append('نتیجه ای یافت نشد!');
+
 
          }
           });
