@@ -159,10 +159,10 @@
 
     },
            error: function(xhr, resp, text) {
-
-               $('#search_result').empty()
-               $('#search_result').append('نتیجه ای یافت نشد!');
-
+                 $('#search_result').empty()
+                if (this.data.length > 98) {
+                    $('#search_result').append('نتیجه ای یافت نشد!');
+                }
 
          }
           });
