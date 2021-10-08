@@ -1,5 +1,6 @@
 from random import randint
 
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core import paginator
 from django.core.paginator import PageNotAnInteger, EmptyPage
@@ -9,10 +10,10 @@ from members.models import Customer
 from .models import Product, Category
 from basket.models import Basket
 from django.contrib import messages
-
 # Create your views here.
 
 def index(request):
+
     list_of_products = paginator.Paginator(Product.objects.all().order_by('-id'), 6)
     page = request.GET.get('page',1)
     try:
@@ -22,13 +23,12 @@ def index(request):
     except EmptyPage:
         list_of_products = list_of_products.page(list_of_products.num_pages)
 
-    categories = get_list_or_404(Category)
+    categories = Category.objects.all()
     newest_products = Product.objects.all().order_by('-id')[:4]
 
     products_len = len(Product.objects.all())
     second_num = randint(4, products_len)
     first_num = second_num - 4
-
     recommendedـproducts = Product.objects.all().order_by('id')[first_num:second_num]
     context = {
         'products': list_of_products,
