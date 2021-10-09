@@ -27,9 +27,13 @@ def index(request):
     newest_products = Product.objects.all().order_by('-id')[:4]
 
     products_len = len(Product.objects.all())
-    second_num = randint(4, products_len)
-    first_num = second_num - 4
-    recommendedـproducts = Product.objects.all().order_by('id')[first_num:second_num]
+    if products_len > 4:
+        second_num = randint(4, products_len)
+        first_num = second_num - 4
+        recommendedـproducts = Product.objects.all().order_by('id')[first_num:second_num]
+    else:
+        recommendedـproducts = Product.objects.all().order_by('id')
+
     context = {
         'products': list_of_products,
         'categories': categories,
@@ -43,9 +47,12 @@ def product_detail(request, pk):
     my_product = get_object_or_404(Product, id=pk)
     product_category = my_product.category
     products_len = len(Product.objects.all())
-    second_num = randint(3, products_len)
-    first_num = second_num - 3
-    related_products = Product.objects.filter(category=product_category).order_by('-id')[first_num:second_num]
+    if products_len > 4:
+        second_num = randint(3, products_len)
+        first_num = second_num - 3
+        related_products = Product.objects.filter(category=product_category).order_by('-id')[first_num:second_num]
+    else:
+        related_products = Product.objects.filter(category=product_category).order_by('-id')
     context = {
         'my_product': my_product,
         'related_products': related_products
