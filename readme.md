@@ -13,8 +13,8 @@ run the command " sudo docker-compose build "
 run the command " sudo docker-compose up "
 
 # step 4:
-open another terminal and run the command " # step 4:docker exec -it <container> bash "
-replace " <container> " with the name of django app that docker made for this django app 
+open another terminal and run the command " # step 4:docker exec -it CONTAINER bash "
+replace " CONTAINER " with the name of django app that docker made for this django app 
 for finding name of django app just run command " sudo docker ps " and look at NAMES column  
 
 # step 5:
