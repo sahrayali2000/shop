@@ -44,8 +44,9 @@ def create_basket(request):
                 coupon.customers.add(customer)
                 messages.success(request,f' : کد تخفیف شما برای خرید بعدی {coupon.coupon_number}')
                 coupon.save()
+                return redirect('basket:basket')
 
-            return redirect('basket:basket')
+            return redirect('basket:show-orders')
     else:
         basket_form = BasketForm()
         categories = get_list_or_404(Category)
