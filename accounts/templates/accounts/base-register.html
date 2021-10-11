@@ -71,8 +71,9 @@
                         </li>
 
                     </ul>
-                    <form class="form-inline">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                    <form class="form-inline" id="search_form">
+                        {% csrf_token %}
+                        <input class="form-control mr-sm-2" type="text" placeholder="جستوجو کن" aria-label="Search" name="search_input" id="search_input">
                     </form>
                 </div>
             </nav>
@@ -97,16 +98,21 @@
                         </li>
 
                     </ul>
-                    <form class="form-inline">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                    <form class="form-inline" id="search_form">
+                        {% csrf_token %}
+                        <input class="form-control mr-sm-2" type="text" placeholder="جستوجو کن" aria-label="Search" name="search_input" id="search_input">
                     </form>
                 </div>
             </nav>
             <!--/.Navbar blue-->
 {% endif %}
 
-</body>
 <div class="container-fluid">
+<div class="row" style="text-align: left; margin-left: 2vw;">
+    <div id="search_result" class="col-12"  style="width: 100vw;height: auto; max-height: 20vh; overflow: auto;">
+
+    </div>
+</div>
 <div class="row">
 <div class="col-lg-8 col-md-7 col-sm-6 col-12">
 {% block content %}
@@ -121,10 +127,64 @@
 </div>
 </div>
 </div>
+</body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+     var $crf_token = $('[name="csrfmiddlewaretoken"]').attr('value');
+        $('#search_result').empty();
+        $("#search_input").keyup(function (){
+       $.ajax({
+           url: "{% url 'productapi:search' %}",
+           type: "POST",
+           dataType: "json",
+           headers:{"X-CSRFToken": $crf_token},
+      data: $('#search_form').serialize(),
+           success: function (data){
+
+               $('#search_result').empty()
+            for (let mydata in data){
+                if (mydata = 'product') {
+                    for (let obj in data[mydata]){
+                        let sdata = data[mydata]
+                        var link = document.createElement('a');
+                        var link_text = document.createTextNode(obj);
+                        link.appendChild(link_text)
+                        link.href = '/detail/' + sdata[obj]
+                        $('#search_result').append(link);
+                        $('#search_result').append('<br>');
+                    }
+                    }
+            if (mydata = 'category'){
+                for (let obj in data[mydata]){
+                        let sdata = data[mydata]
+                        var link = document.createElement('a');
+                        var link_text = document.createTextNode(obj);
+                        link.appendChild(link_text)
+                        link.href = '/category/' + sdata[obj]
+                        $('#search_result').append(link);
+                    }
+            }
+
+            }
+
+    },
+           error: function(xhr, resp, text) {
+                 $('#search_result').empty()
+                if (this.data.length > 98) {
+                    $('#search_result').append('نتیجه ای یافت نشد!');
+                }
+
+         }
+          });
+     });
+     });
+
+</script>
 {% block js %}
 
 {% endblock %}

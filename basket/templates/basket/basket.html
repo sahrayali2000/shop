@@ -9,10 +9,12 @@
 
     </div>
 <div class="row" id="basket-info">
+<div class="col-6">
 <form method="post" id="MyForm" style="margin-right: 10vw;">
 {% load bootstrap4 %}
 
     {% csrf_token %}
+
     {% bootstrap_form basket_form %}
         <label>کد تخفیف داری؟</label>
     <input type="number" class="form-control" name="coupon">
@@ -22,6 +24,15 @@
     <input type="submit" id="submit" name="submit" value="نهایی کردن" class="btn btn-block btn-primary mt-3">
     {% endbuttons %}
 </form>
+</div>
+<div class="col-6">
+    <form method="post">
+        <p class="text-center">آدرست توی آدرس های ثبت شده نبود؟خب از اینجا میتونی آدرست رو اضافه کنی</p>
+        {% csrf_token %}
+            {% bootstrap_form address_form %}
+        <input type="submit" class="btn btn-sm btn-primary" value="اضافه کردن">
+    </form>
+</div>
 </div>
 
 {% endblock %}

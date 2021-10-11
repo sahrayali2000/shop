@@ -17,7 +17,7 @@
 {% block content %}
 
         <div class="card" style="width: 50vw; margin-right: 3vw;">
-            <img class="card-img-top" src="..." alt="Card image cap">
+
             <div class="card-body">
             <h5 class="card-title">{{ customer.first_name }} {{ customer.last_name }}</h5>
             <p class="card-text"> کد پستی : {{ customer.zip_code }}</p>
@@ -32,7 +32,7 @@
   <li class="list-group-item access-sidebar">دسترسی سریع</li>
     <li class="list-group-item"><a href="{% url 'basket:show-orders' %}">لیست سفارشات</a></li>
     <li class="list-group-item"><a href="{% url 'basket:last-orders' %}">لیست سفارشات اخیر</a></li>
-    <li class="list-group-item"><a href="{% url 'basket:submitten-addresses' %}">لیست آدرس های ثبت شده</a></li>
+{#    <li class="list-group-item"><a href="{% url 'basket:submitten-addresses' %}">لیست آدرس های ثبت شده</a></li>#}
 
 </ul>
 {% endblock %}

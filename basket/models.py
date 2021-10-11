@@ -3,6 +3,16 @@ from products.models import Product
 from members.models import Customer
 from datetime import date, datetime
 # Create your models here.
+
+class Address(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True, blank=True)
+    title = models.CharField(max_length=500,verbose_name='عنوان آدرس', null=True)
+    address_content = models.TextField(verbose_name='آدرس', null=True)
+
+    def __str__(self):
+        return self.title
+
+
 class Basket(models.Model):
     product = models.ManyToManyField(Product, null=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True, blank=True)
@@ -18,7 +28,7 @@ class Basket(models.Model):
         (DELIVERED, 'delivered'),
     )
     status = models.IntegerField(choices=status_choices, default=1)
-    address = models.TextField(verbose_name='آدرس')
+    address = models.ForeignKey(Address, on_delete=models.CASCADE, verbose_name='آدرس')
 
     def __str__(self):
         return f'{self.customer.first_name} {self.customer.last_name} zip code : {self.customer.zip_code}'

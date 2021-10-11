@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_list_or_404, get_object_or_404, redirect, HttpResponse
 from members.models import Customer
-from .forms import BasketForm
+from .forms import BasketForm, AddressForm
 from django.contrib import messages
 from products.models import Product, Category
 from .models import Basket, Coupon
@@ -20,6 +20,7 @@ def create_basket(request):
     TotalAmount = []
     if request.method == 'POST':
         basket_form = BasketForm(request.POST)
+        address_form = AddressForm(request.POST)
         if basket_form.is_valid():
             basket_instance = basket_form.save()
             basket_instance.customer = customer
@@ -47,12 +48,21 @@ def create_basket(request):
                 return redirect('basket:basket')
 
             return redirect('basket:show-orders')
+
+        elif address_form.is_valid():
+            address_instance = address_form.save(commit=False)
+            address_instance.customer = customer
+            address_instance.save()
+            return redirect('basket:basket')
     else:
         basket_form = BasketForm()
+        address_form = AddressForm()
         categories = get_list_or_404(Category)
+
         context = {
             'basket_form': basket_form,
             'categories': categories,
+            'address_form': address_form,
         }
         return render(request, 'basket/basket.html', context=context)
 @login_required
@@ -81,18 +91,18 @@ def last_orders(request):
         'categories': categories
     }
     return render(request, 'basket/last-orders.html', context=context)
-@login_required
-def submitted_addresses(request):
-    try:
-        customer = get_object_or_404(Customer, user=request.user)
-    except:
-        return redirect('accounts:complete-register')
-    the_basket = get_list_or_404(Basket, customer=customer)
-    categories = Category.objects.all()
-    context = {
-        'the_basket': the_basket,
-        'categories': categories
-    }
-    return render(request, 'basket/submitten-addresses.html', context=context)
+# @login_required
+# def submitted_addresses(request):
+#     try:
+#         customer = get_object_or_404(Customer, user=request.user)
+#     except:
+#         return redirect('accounts:complete-register')
+#     the_basket = get_list_or_404(Basket, customer=customer)
+#     categories = Category.objects.all()
+#     context = {
+#         'the_basket': the_basket,
+#         'categories': categories
+#     }
+#     return render(request, 'basket/submitten-addresses.html', context=context)
 
 
