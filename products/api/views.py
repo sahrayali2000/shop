@@ -20,7 +20,7 @@ class Search(mixins.ListModelMixin,
         search_serializer = SearchSerializer(data=request.data)
         if search_serializer.is_valid():
             try:
-                search_instance = get_list_or_404(Product, name__startswith=search_serializer.validated_data['search_input'])
+                search_instance = get_list_or_404(Product, name__contains=search_serializer.validated_data['search_input'])
                 MyData = dict()
                 for item in search_instance:
                     MyData.update({f'{item.name}': item.id})
@@ -29,7 +29,7 @@ class Search(mixins.ListModelMixin,
                 return Response(data=data, status=status.HTTP_200_OK)
             except:
                 try:
-                    search_instance = get_object_or_404(Category, name__startswith=search_serializer.validated_data['search_input'])
+                    search_instance = get_object_or_404(Category, name__contains=search_serializer.validated_data['search_input'])
                     data = {'category': {f'{search_instance.name}': search_instance.id}}
                     return Response(data=data, status=status.HTTP_200_OK)
                 except:
