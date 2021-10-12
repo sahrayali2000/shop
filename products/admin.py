@@ -3,7 +3,9 @@ from .models import Product, Category
 # Register your models here.
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['name']
+    list_filter = ['name']
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['name', 'category', 'price', 'inventory']
+    list_filter = ['category']

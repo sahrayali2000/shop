@@ -1,10 +1,9 @@
 from django.contrib import admin
-from .models import Customer, Staff
+from .models import Customer
 # Register your models here.
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['first_name', 'last_name', 'zip_code']
+    search_fields = ['first_name', 'last_name']
 
-@admin.register(Staff)
-class StaffAdmin(admin.ModelAdmin):
-    pass
+
