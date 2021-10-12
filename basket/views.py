@@ -91,18 +91,4 @@ def last_orders(request):
         'categories': categories
     }
     return render(request, 'basket/last-orders.html', context=context)
-# @login_required
-# def submitted_addresses(request):
-#     try:
-#         customer = get_object_or_404(Customer, user=request.user)
-#     except:
-#         return redirect('accounts:complete-register')
-#     the_basket = get_list_or_404(Basket, customer=customer)
-#     categories = Category.objects.all()
-#     context = {
-#         'the_basket': the_basket,
-#         'categories': categories
-#     }
-#     return render(request, 'basket/submitten-addresses.html', context=context)
-
 
